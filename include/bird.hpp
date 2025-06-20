@@ -15,7 +15,7 @@ public:
     void draw() const override;
 
     void jump();
-    void setGravity(float g);
+    void setGravity(float g); //teste
 };
 
 #endif
