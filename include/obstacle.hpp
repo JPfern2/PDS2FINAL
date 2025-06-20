@@ -2,6 +2,7 @@
 #define OBSTACLE_HPP
 
 #include "game_object.hpp"
+#include <allegro5/allegro.h>
 
 class Obstacle : public GameObject {
 private:
@@ -18,6 +19,7 @@ public:
     bool isOffScreen() const;
     bool hasScored() const;
     void markScored();
+    void resetScored();
 };
 
 #endif

@@ -1,11 +1,10 @@
-// include/scenario.hpp
-
 #ifndef SCENARIO_HPP
 #define SCENARIO_HPP
 
 #include <vector>
-#include "obstacle.hpp" // classe dos obstáculos (parte 2)
-#include "bird.hpp"     // classe do pássaro (parte 2)
+#include <allegro5/allegro.h>
+#include "obstacle.hpp"
+#include "bird.hpp"
 
 class Scenario {
 protected:
@@ -20,7 +19,7 @@ public:
 
     virtual ~Scenario();
 
-    virtual void update(Bird& bird); // atualiza obstáculos e colisões
+    virtual bool update(Bird& bird); // Retorna true se houve colisão e atualiza obstáculos e colisões
     virtual void draw() const;       // desenha cenário e obstáculos
 
     void reset();

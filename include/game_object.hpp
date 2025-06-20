@@ -18,6 +18,11 @@ public:
     float getY() const;
     float getWidth() const;
     float getHeight() const;
+
+    void setX(float newX);
+    void setY(float newY);
+    void setWidth(float newWidth);
+    void setHeight(float newHeight);
 };
 
 #endif

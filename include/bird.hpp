@@ -2,6 +2,7 @@
 #define BIRD_HPP
 
 #include "game_object.hpp"
+#include <allegro5/allegro.h>
 
 class Bird : public GameObject {
 private:
