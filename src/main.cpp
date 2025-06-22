@@ -6,9 +6,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sstream>
+#include <vector>
+#include <algorithm>
+
 // nossas classes
 #include "../include/bird.hpp"
 #include "../include/scenario.hpp"
+#include "../include/ListaDeJogadores.hpp"
+#include "../include/jogador.hpp"
 
 //  constantes
 #define SCREEN_WIDTH 800
@@ -84,6 +89,7 @@ int main() {
     while (true) {
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
+        ListaDeJogadores cadastro_jogadores("BaseJogadores.json");
 
         //  eventos de timer
         if (ev.type == ALLEGRO_EVENT_TIMER) {
@@ -139,11 +145,50 @@ int main() {
 
             //  Mostra mensagens
             if (game_over) {
-                al_draw_text(font, al_map_rgb(255, 0, 0), SCREEN_WIDTH / 2,
-                    SCREEN_HEIGHT / 2 - 20, ALLEGRO_ALIGN_CENTER, "It's over baby!");
-                al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2,
-                    SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER, "R para Reiniciar");
+                //al_draw_text(font, al_map_rgb(255, 0, 0), SCREEN_WIDTH / 2,
+                    //SCREEN_HEIGHT / 2 - 20, ALLEGRO_ALIGN_CENTER, "It's over baby!");
+                //al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2,
+                    //SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTER, "R para Reiniciar");
+
+                //Ranking Game Over
+                int retangulo_Larg = 480;
+                int retangulo_Alt = 400;
+                int retangulo_X = (SCREEN_WIDTH - retangulo_Larg) / 2;
+                int retangulo_Y = (SCREEN_HEIGHT - retangulo_Alt) / 2;
+
+                //Background
+                al_draw_filled_rectangle(retangulo_X, retangulo_Y, retangulo_X + retangulo_Larg, retangulo_Y + retangulo_Alt, al_map_rgba(0, 0, 0, 240));
+                al_draw_rectangle(retangulo_X, retangulo_Y, retangulo_X + retangulo_Larg, retangulo_Y + retangulo_Alt, al_map_rgb(255, 255, 255), 2);
+
+                // Mensagens e  Ranking
+                al_draw_text(font, al_map_rgb(255, 0, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 10, ALLEGRO_ALIGN_CENTER, "VOCÊ PERDEU!");
+                al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 40, ALLEGRO_ALIGN_CENTER, "Ranking dos Jogadores");
+
+                std::vector<Jogador> jog = cadastro_jogadores.getJogadores();
+                std::sort(jog.begin(), jog.end(), [](Jogador& a, Jogador& b) {
+                    return a.getPontuacaoMaxima() > b.getPontuacaoMaxima();
+                });
+
+                if (!jog.empty()) {
+
+                    std::string campeaoTexto = "GOAT: " + jog[0].getNome() + " (" +  jog[0].getApelido() + ") - Pontos: " + std::to_string(jog[0].getPontuacaoMaxima()) + " (" + std::to_string(jog[0].getNumeroDeJogos()) + " partidas)";
+                    al_draw_text(font, al_map_rgb(255, 215, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 70, ALLEGRO_ALIGN_CENTER, campeaoTexto.c_str()); // dourado
+
+                    int qtde_jogadores = jog.size();
+                    int linhaAltura = 12;
+                    for (int i = 1; i < qtde_jogadores; i++) {
+                        retangulo_Y += linhaAltura;
+                        std::string texto = std::to_string(i + 1) + ". " + jog[i].getNome() + " (" +  jog[i].getApelido() + ") - Pontos: " + std::to_string(jog[i].getPontuacaoMaxima()) + " (" + std::to_string(jog[0].getNumeroDeJogos()) + " partidas)";
+                        al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + 20, retangulo_Y + 70 + i * linhaAltura + 10, ALLEGRO_ALIGN_LEFT, texto.c_str());
+                    }
+                }
+                else {
+                    
+                    al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt / 2, ALLEGRO_ALIGN_CENTER, "Nenhum jogador cadastrado");
+                }
+                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 30, ALLEGRO_ALIGN_CENTER, "Pressione R para Reiniciar");
             }
+
             else {
                 al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2,
                     SCREEN_HEIGHT - 30, ALLEGRO_ALIGN_CENTER, "Espaço para pular!");

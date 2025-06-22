@@ -18,6 +18,7 @@ public:
     void cadastrarJogador(Jogador& jogador);
     void removerJogador(const std::string& apelido);
     void listarJogadores();
+    std::vector<Jogador> getJogadores() const;
     std::string maiorPontuador();
     void carregarJogadores();
     void salvarJogadores();

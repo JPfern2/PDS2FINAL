@@ -100,3 +100,7 @@ std::string ListaDeJogadores::maiorPontuador() {
     }
     return maior->getNome() + " (" + maior->getApelido() + ") com " + std::to_string(maior->getPontuacaoMaxima()) + " pontos.";
 }
+
+std::vector<Jogador> ListaDeJogadores::getJogadores() const {
+    return jogadores;
+}
