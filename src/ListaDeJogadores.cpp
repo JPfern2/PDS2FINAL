@@ -42,12 +42,10 @@ void ListaDeJogadores::listarJogadores() {
 
 void ListaDeJogadores::carregarJogadores() {
     std::ifstream arquivo("../assets/" + nome_arquivo);
-    std::cout << "Carregando jogadores do arquivo: " << "../assets/" + nome_arquivo << std::endl;
-
+    
     if (arquivo.is_open()) {
-        
-        std::cout << "Carregando jogadores do arquivo: " << "../assets/" + nome_arquivo << std::endl;
 
+        //Confeir se o JSON está vazio
         arquivo.seekg(0, std::ios::end);
         size_t tamanho = arquivo.tellg();
         arquivo.seekg(0);
@@ -64,16 +62,11 @@ void ListaDeJogadores::carregarJogadores() {
             jogadores.clear();
 
             for (auto& iterador : j) {
-                Jogador auxiliar(
-                    iterador["nome"],
-                    iterador["apelido"],
-                    iterador["pontuacao_maxima"],
-                    iterador["numero_de_jogos"]
-                );
+                Jogador auxiliar(iterador["nome"], iterador["apelido"], iterador["pontuacao_maxima"], iterador["numero_de_jogos"]);
                 jogadores.push_back(auxiliar);
             }
         } catch (const std::exception& e) {
-            std::cerr << "Erro ao carregar JSON: " << e.what() << std::endl;
+           //Adcionar exceção
         }
     }
 }
