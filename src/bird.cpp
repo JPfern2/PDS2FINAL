@@ -22,3 +22,10 @@ void Bird::jump() {
 void Bird::setGravity(float g) {  
     gravity = g;  
 }
+
+
+void Bird::setJumpForce(float jf) {
+    jumpForce = jf;
+}
+
+

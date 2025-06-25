@@ -1,3 +1,4 @@
+//  bibliotecas 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -7,67 +8,53 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
+// nossas classes
 #include "../include/bird.hpp"
 #include "../include/scenario.hpp"
 #include "../include/ListaDeJogadores.hpp"
 #include "../include/jogador.hpp"
 
+//  constantes
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
+// Estados do jogo
 enum GameState {
-    MENU,
+    NICKNAME_INPUT,
     PLAYING,
     GAME_OVER,
-    CADASTRO,
     RANKING
 };
 
-void drawMenu(ALLEGRO_FONT* font, int selectedOption) {
-    al_clear_to_color(al_map_rgb(135, 206, 235));
-
-    // Título
-    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 100, ALLEGRO_ALIGN_CENTER, "FLAPPY BIRD");
-
-    // Opções
-    al_draw_text(font, selectedOption == 0 ? al_map_rgb(255, 255, 0) : al_map_rgb(0, 0, 0),
-        SCREEN_WIDTH / 2, 200, ALLEGRO_ALIGN_CENTER, "1. Iniciar Jogo");
-    al_draw_text(font, selectedOption == 1 ? al_map_rgb(255, 255, 0) : al_map_rgb(0, 0, 0),
-        SCREEN_WIDTH / 2, 250, ALLEGRO_ALIGN_CENTER, "2. Cadastrar Jogador");
-    al_draw_text(font, selectedOption == 2 ? al_map_rgb(255, 255, 0) : al_map_rgb(0, 0, 0),
-        SCREEN_WIDTH / 2, 300, ALLEGRO_ALIGN_CENTER, "3. Ver Ranking");
-    al_draw_text(font, selectedOption == 3 ? al_map_rgb(255, 255, 0) : al_map_rgb(0, 0, 0),
-        SCREEN_WIDTH / 2, 350, ALLEGRO_ALIGN_CENTER, "4. Sair");
-
-    al_flip_display();
-}
-
-void drawCadastroScreen(ALLEGRO_FONT* font, const std::string& nome, const std::string& apelido) {
-    al_clear_to_color(al_map_rgb(135, 206, 235));
-
-    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 100, ALLEGRO_ALIGN_CENTER, "CADASTRO DE JOGADOR");
-
-    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 200, ALLEGRO_ALIGN_CENTER,
-        ("Nome: " + nome).c_str());
-    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 250, ALLEGRO_ALIGN_CENTER,
-        ("Apelido: " + apelido).c_str());
-
-    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 350, ALLEGRO_ALIGN_CENTER,
-        "Pressione ENTER para confirmar ou ESC para voltar");
-
-    al_flip_display();
-}
-
 int main() {
-    if (!al_init()) return -1;
-    if (!al_init_primitives_addon()) return -1;
-    if (!al_install_keyboard()) return -1;
-    if (!al_init_font_addon()) return -1;
-    if (!al_init_ttf_addon()) return -1;
+    //  iniciando allegro
+    if (!al_init()) {
+        return -1;
+    }
 
+    if (!al_init_primitives_addon()) {
+        return -1;
+    }
+
+    if (!al_install_keyboard()) {
+        return -1;
+    }
+
+    if (!al_init_font_addon()) {
+        return -1;
+    }
+
+    if (!al_init_ttf_addon()) {
+        return -1;
+    }
+
+    //  preparando allegro 
     ALLEGRO_DISPLAY* display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
-    if (!display) return -1;
+    if (!display) {
+        return -1;
+    }
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
     if (!timer) {
@@ -82,232 +69,313 @@ int main() {
         return -1;
     }
 
-    ALLEGRO_FONT* font = al_load_ttf_font("assets/arial.ttf", 24, 0);
-    if (!font) font = al_create_builtin_font();
+    ALLEGRO_FONT* font = al_create_builtin_font();
+    if (!font) {
+        al_destroy_event_queue(event_queue);
+        al_destroy_timer(timer);
+        al_destroy_display(display);
+        return -1;
+    }
 
+    //  preparando eventos
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    GameState gameState = MENU;
-    int selectedOption = 0;
-    std::string nomeJogador = "";
-    std::string apelidoJogador = "";
-    bool typingName = true;
-    ListaDeJogadores cadastro_jogadores("BaseJogadores.json");
-
-    Bird bird(100, SCREEN_HEIGHT / 2);
-    Scenario scenario(0.5, 3.0);
+    // Variáveis do jogo
+    GameState current_state = NICKNAME_INPUT;
+    std::string player_nickname = "";
+    std::string player_name = "";
     bool redraw = true;
+    bool score_saved_this_game = false;
+    
+    // Criar o pássaro
+    Bird bird(100, SCREEN_HEIGHT / 2);
 
+    // Criar o cenário com gravidade e velocidade dos obstáculos
+    Scenario scenario(0.5, 3.0);
+
+    // Lista de jogadores
+    ListaDeJogadores cadastro_jogadores("../assets/BaseJogadores.json");
+
+    // Inicia o timer
     al_start_timer(timer);
 
+    //  loop do jogo
     while (true) {
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
-        if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            break;
-        }
-
-        if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-            switch (gameState) {
-            case MENU:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_DOWN) {
-                    selectedOption = (selectedOption + 1) % 4;
-                }
-                else if (ev.keyboard.keycode == ALLEGRO_KEY_UP) {
-                    selectedOption = (selectedOption - 1 + 4) % 4;
-                }
-                else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                    if (selectedOption == 0) {
-                        gameState = PLAYING;
-                    }
-                    else if (selectedOption == 1) {
-                        gameState = CADASTRO;
-                        nomeJogador = "";
-                        apelidoJogador = "";
-                        typingName = true;
-                    }
-                    else if (selectedOption == 2) {
-                        gameState = RANKING;
-                    }
-                    else if (selectedOption == 3) {
-                        goto end_game;
-                    }
-                }
-                break;
-
-            case CADASTRO:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-                    gameState = MENU;
-                }
-                else if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE) {
-                    if (typingName && !nomeJogador.empty()) {
-                        nomeJogador.pop_back();
-                    }
-                    else if (!typingName && !apelidoJogador.empty()) {
-                        apelidoJogador.pop_back();
-                    }
-                }
-                else if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                    if (typingName) {
-                        typingName = false;
-                    }
-                    else {
-                        if (!nomeJogador.empty() && !apelidoJogador.empty()) {
-                            Jogador novoJogador(nomeJogador, apelidoJogador, 0, 0);
-                            cadastro_jogadores.cadastrarJogador(novoJogador);
-                            gameState = MENU;
-                        }
-                    }
-                }
-                else if (ev.keyboard.unichar >= 32 && ev.keyboard.unichar <= 126) {
-                    if (typingName) {
-                        nomeJogador += ev.keyboard.unichar;
-                    }
-                    else {
-                        apelidoJogador += ev.keyboard.unichar;
-                    }
-                }
-                break;
-
-            case RANKING:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE ||
-                    ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                    gameState = MENU;
-                }
-                break;
-
-            case PLAYING:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_SPACE) {
-                    bird.jump();
-                }
-                break;
-
-            case GAME_OVER:
-                if (ev.keyboard.keycode == ALLEGRO_KEY_R) {
-                    bird = Bird(100, SCREEN_HEIGHT / 2);
-                    scenario.reset();
-                    gameState = PLAYING;
-                }
-                else if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-                    gameState = MENU;
-                }
-                break;
-            }
-        }
-
+        //  eventos de timer
         if (ev.type == ALLEGRO_EVENT_TIMER) {
-            if (gameState == PLAYING) {
+            if (current_state == PLAYING) {
+                //  atualiza ave
                 bird.update();
+
+                //  atualizando cenario e verificacao das colisoes 
                 bool collision_detected = scenario.update(bird);
+
+                // Verificar se houve colisão com os canos ou limites da tela
                 if (collision_detected || bird.getY() < 0 || bird.getY() + 20 > SCREEN_HEIGHT) {
-                    gameState = GAME_OVER;
+                    current_state = GAME_OVER;
                 }
             }
             redraw = true;
         }
 
+        //  eventos do teclado
+        else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+            if (current_state == NICKNAME_INPUT) {
+                if (ev.keyboard.keycode == ALLEGRO_KEY_ENTER && !player_nickname.empty()) {
+                    // Usar o apelido como nome também se não especificado
+                    if (player_name.empty()) {
+                        player_name = player_nickname;
+                    }
+                    current_state = PLAYING;
+                    score_saved_this_game = false;
+                }
+                else if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE && !player_nickname.empty()) {
+                    player_nickname.pop_back();
+                }
+                else if (ev.keyboard.keycode >= ALLEGRO_KEY_A && ev.keyboard.keycode <= ALLEGRO_KEY_Z) {
+                    if (player_nickname.length() < 15) { // Limite de 15 caracteres
+                        char c = 'A' + (ev.keyboard.keycode - ALLEGRO_KEY_A);
+                        if (!(ev.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT)) {
+                            c = c - 'A' + 'a'; // Converter para minúscula
+                        }
+                        player_nickname += c;
+                    }
+                }
+                else if (ev.keyboard.keycode >= ALLEGRO_KEY_0 && ev.keyboard.keycode <= ALLEGRO_KEY_9) {
+                    if (player_nickname.length() < 15) {
+                        char c = '0' + (ev.keyboard.keycode - ALLEGRO_KEY_0);
+                        player_nickname += c;
+                    }
+                }
+                else if (ev.keyboard.keycode == ALLEGRO_KEY_SPACE) {
+                    if (player_nickname.length() < 15 && !player_nickname.empty()) {
+                        player_nickname += ' ';
+                    }
+                }
+            }
+            else if (current_state == PLAYING) {
+                if (ev.keyboard.keycode == ALLEGRO_KEY_SPACE) {
+                    bird.jump(); // Faz o pássaro pular
+                }
+            }
+            else if (current_state == GAME_OVER) {
+                if (ev.keyboard.keycode == ALLEGRO_KEY_R) {
+                    //  restarte 
+                    bird = Bird(100, SCREEN_HEIGHT / 2); // Recriar o pássaro
+                    scenario.reset(); // Resetar o cenário
+                    current_state = PLAYING;
+                    score_saved_this_game = false;
+                }
+                else if (ev.keyboard.keycode == ALLEGRO_KEY_N) {
+                    // Novo jogador
+                    player_nickname = "";
+                    player_name = "";
+                    bird = Bird(100, SCREEN_HEIGHT / 2);
+                    scenario.reset();
+                    current_state = NICKNAME_INPUT;
+                }
+                else if (ev.keyboard.keycode == ALLEGRO_KEY_T) {
+                    // Ver ranking completo
+                    current_state = RANKING;
+                }
+            }
+            else if (current_state == RANKING) {
+                if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE || ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                    current_state = GAME_OVER;
+                }
+            }
+        }
+
+        //  fechou janela
+        else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            break;
+        }
+
+        //  renderizacao 
         if (redraw && al_is_event_queue_empty(event_queue)) {
             redraw = false;
 
-            switch (gameState) {
-            case MENU: {
-                drawMenu(font, selectedOption);
-                break;
-            }
+            //  limpa a tela
+            al_clear_to_color(al_map_rgb(135, 206, 235));
 
-            case CADASTRO: {
-                drawCadastroScreen(font, nomeJogador, apelidoJogador);
-                break;
-            }
+            if (current_state == NICKNAME_INPUT) {
+                // Tela de entrada de apelido
+                int box_width = 400;
+                int box_height = 200;
+                int box_x = (SCREEN_WIDTH - box_width) / 2;
+                int box_y = (SCREEN_HEIGHT - box_height) / 2;
 
-            case RANKING: {
-                al_clear_to_color(al_map_rgb(135, 206, 235));
-                al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 50, ALLEGRO_ALIGN_CENTER, "RANKING DE JOGADORES");
+                // Fundo da caixa
+                al_draw_filled_rectangle(box_x, box_y, box_x + box_width, box_y + box_height, al_map_rgba(0, 0, 0, 200));
+                al_draw_rectangle(box_x, box_y, box_x + box_width, box_y + box_height, al_map_rgb(255, 255, 255), 2);
 
-                std::vector<Jogador> jog = cadastro_jogadores.getJogadores();
-                std::sort(jog.begin(), jog.end(), [](Jogador& a, Jogador& b) {
-                    return a.getPontuacaoMaxima() > b.getPontuacaoMaxima();
-                    });
+                // Título
+                al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2, box_y + 20, ALLEGRO_ALIGN_CENTER, "FLAPPY BIRD");
+                al_draw_text(font, al_map_rgb(200, 200, 200), SCREEN_WIDTH / 2, box_y + 50, ALLEGRO_ALIGN_CENTER, "Digite seu apelido:");
 
-                int y = 100;
-                for (size_t i = 0; i < jog.size() && i < 10; i++) {
-                    std::string texto = std::to_string(i + 1) + ". " + jog[i].getNome() + " (" + jog[i].getApelido() + ") - " +
-                        std::to_string(jog[i].getPontuacaoMaxima()) + " pontos";
-                    al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, y, ALLEGRO_ALIGN_CENTER, texto.c_str());
-                    y += 30;
+                // Campo de entrada
+                int input_x = box_x + 20;
+                int input_y = box_y + 80;
+                int input_width = box_width - 40;
+                int input_height = 30;
+
+                al_draw_filled_rectangle(input_x, input_y, input_x + input_width, input_y + input_height, al_map_rgb(255, 255, 255));
+                al_draw_rectangle(input_x, input_y, input_x + input_width, input_y + input_height, al_map_rgb(0, 0, 0), 1);
+
+                // Texto digitado
+                std::string display_text = player_nickname;
+                if (display_text.length() > 20) {
+                    display_text = display_text.substr(display_text.length() - 20);
+                }
+                al_draw_text(font, al_map_rgb(0, 0, 0), input_x + 5, input_y + 8, 0, display_text.c_str());
+
+                // Cursor piscando
+                static int cursor_timer = 0;
+                cursor_timer++;
+                if ((cursor_timer / 30) % 2 == 0) { // Pisca a cada meio segundo
+                    int text_width = al_get_text_width(font, display_text.c_str());
+                    al_draw_line(input_x + 5 + text_width, input_y + 5, input_x + 5 + text_width, input_y + 25, al_map_rgb(0, 0, 0), 1);
                 }
 
-                al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50,
-                    ALLEGRO_ALIGN_CENTER, "Pressione ESC para voltar");
-                al_flip_display();
-                break;
+                // Instruções
+                al_draw_text(font, al_map_rgb(200, 200, 200), SCREEN_WIDTH / 2, box_y + 130, ALLEGRO_ALIGN_CENTER, "Pressione ENTER para começar");
+                al_draw_text(font, al_map_rgb(150, 150, 150), SCREEN_WIDTH / 2, box_y + 150, ALLEGRO_ALIGN_CENTER, "Máximo 15 caracteres");
             }
-
-            case PLAYING: {
-                al_clear_to_color(al_map_rgb(135, 206, 235));
+            else if (current_state == PLAYING) {
+                //  renderiza obstaculos 
                 scenario.draw();
+
+                //  renderiza o passaro
                 bird.draw();
 
+                //  renderiza pontuacao
                 std::string score_text = "Pontuação: " + std::to_string(scenario.getScore());
-                al_draw_text(font, al_map_rgb(0, 0, 0), 10, 10, 0, score_text.c_str());
+                al_draw_text(font, al_map_rgb(255, 255, 255), 10, 10, 0, score_text.c_str());
 
-                al_flip_display();
-                break;
+                // Mostra apelido do jogador
+                std::string player_text = "Jogador: " + player_nickname;
+                al_draw_text(font, al_map_rgb(255, 255, 255), 10, 30, 0, player_text.c_str());
+
+                al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2,
+                    SCREEN_HEIGHT - 30, ALLEGRO_ALIGN_CENTER, "Espaço para pular!");
             }
+            else if (current_state == GAME_OVER) {
+                //  renderiza obstaculos 
+                scenario.draw();
 
-            case GAME_OVER: {
-                al_clear_to_color(al_map_rgb(135, 206, 235));
+                //  renderiza o passaro
+                bird.draw();
 
-                // Desenha o retângulo do game over
+                // Salvar pontuação do jogador
+                if (!score_saved_this_game) {
+                    int final_score = scenario.getScore();
+                    
+                    // Criar ou atualizar jogador
+                    Jogador jogador_atual(player_name, player_nickname, final_score, 1);
+                    cadastro_jogadores.cadastrarJogador(jogador_atual);
+                    cadastro_jogadores.salvarJogadores();
+                    score_saved_this_game = true;
+                }
+
+                //Ranking Game Over
                 int retangulo_Larg = 480;
                 int retangulo_Alt = 400;
                 int retangulo_X = (SCREEN_WIDTH - retangulo_Larg) / 2;
                 int retangulo_Y = (SCREEN_HEIGHT - retangulo_Alt) / 2;
 
+                //Background
                 al_draw_filled_rectangle(retangulo_X, retangulo_Y, retangulo_X + retangulo_Larg, retangulo_Y + retangulo_Alt, al_map_rgba(0, 0, 0, 240));
                 al_draw_rectangle(retangulo_X, retangulo_Y, retangulo_X + retangulo_Larg, retangulo_Y + retangulo_Alt, al_map_rgb(255, 255, 255), 2);
 
-                // Mensagens e Ranking
+                // Mensagens e  Ranking
                 al_draw_text(font, al_map_rgb(255, 0, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 10, ALLEGRO_ALIGN_CENTER, "VOCÊ PERDEU!");
-                al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 40, ALLEGRO_ALIGN_CENTER, "Ranking dos Jogadores");
+                
+                std::string score_final = "Sua pontuação: " + std::to_string(scenario.getScore());
+                al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 30, ALLEGRO_ALIGN_CENTER, score_final.c_str());
+                
+                al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 60, ALLEGRO_ALIGN_CENTER, "Top 5 Jogadores");
 
                 std::vector<Jogador> jog = cadastro_jogadores.getJogadores();
-                std::sort(jog.begin(), jog.end(), [](Jogador& a, Jogador& b) {
+                std::sort(jog.begin(), jog.end(), [](const Jogador& a, const Jogador& b) {
                     return a.getPontuacaoMaxima() > b.getPontuacaoMaxima();
-                    });
+                });
 
                 if (!jog.empty()) {
-                    std::string campeaoTexto = "GOAT: " + jog[0].getNome() + " (" + jog[0].getApelido() + ") - Pontos: " + std::to_string(jog[0].getPontuacaoMaxima()) + " (" + std::to_string(jog[0].getNumeroDeJogos()) + " partidas)";
-                    al_draw_text(font, al_map_rgb(255, 215, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 70, ALLEGRO_ALIGN_CENTER, campeaoTexto.c_str());
-
-                    int qtde_jogadores = jog.size();
-                    int linhaAltura = 12;
-                    for (int i = 1; i < qtde_jogadores; i++) {
-                        retangulo_Y += linhaAltura;
-                        std::string texto = std::to_string(i + 1) + ". " + jog[i].getNome() + " (" + jog[i].getApelido() + ") - Pontos: " + std::to_string(jog[i].getPontuacaoMaxima()) + " (" + std::to_string(jog[i].getNumeroDeJogos()) + " partidas)";
-                        al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + 20, retangulo_Y + 70 + i * linhaAltura + 10, ALLEGRO_ALIGN_LEFT, texto.c_str());
+                    int max_display = std::min(5, (int)jog.size());
+                    
+                    for (int i = 0; i < max_display; i++) {
+                        std::string texto = std::to_string(i + 1) + ". " + jog[i].getApelido() + " - " + std::to_string(jog[i].getPontuacaoMaxima()) + " pts";
+                        ALLEGRO_COLOR cor = (i == 0) ? al_map_rgb(255, 215, 0) : al_map_rgb(255, 255, 255); // Dourado para o primeiro
+                        al_draw_text(font, cor, retangulo_X + 20, retangulo_Y + 90 + i * 20, ALLEGRO_ALIGN_LEFT, texto.c_str());
                     }
                 }
                 else {
-                    al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt / 2, ALLEGRO_ALIGN_CENTER, "Nenhum jogador cadastrado");
+                    al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 120, ALLEGRO_ALIGN_CENTER, "Nenhum jogador cadastrado");
                 }
-                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 30, ALLEGRO_ALIGN_CENTER, "Pressione R para Reiniciar ou ESC para Menu");
+                
+                // Opções
+                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 80, ALLEGRO_ALIGN_CENTER, "R - Jogar novamente");
+                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 60, ALLEGRO_ALIGN_CENTER, "N - Novo jogador");
+                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 40, ALLEGRO_ALIGN_CENTER, "T - Ver ranking completo");
+                
+            }
+            else if (current_state == RANKING) {
+                // Tela de ranking completo
+                al_clear_to_color(al_map_rgb(50, 50, 50));
+                
+                int box_width = 600;
+                int box_height = 500;
+                int box_x = (SCREEN_WIDTH - box_width) / 2;
+                int box_y = (SCREEN_HEIGHT - box_height) / 2;
 
-                al_flip_display();
-                break;
+                al_draw_filled_rectangle(box_x, box_y, box_x + box_width, box_y + box_height, al_map_rgba(0, 0, 0, 240));
+                al_draw_rectangle(box_x, box_y, box_x + box_width, box_y + box_height, al_map_rgb(255, 255, 255), 2);
+
+                al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2, box_y + 20, ALLEGRO_ALIGN_CENTER, "RANKING COMPLETO - TOP 10");
+
+                std::vector<Jogador> jog = cadastro_jogadores.getJogadores();
+                std::sort(jog.begin(), jog.end(), [](const Jogador& a, const Jogador& b) {
+                    return a.getPontuacaoMaxima() > b.getPontuacaoMaxima();
+                });
+
+                if (!jog.empty()) {
+                    int max_display = std::min(10, (int)jog.size());
+                    
+                    for (int i = 0; i < max_display; i++) {
+                        std::string texto = std::to_string(i + 1) + ". " + jog[i].getApelido() + " - " + std::to_string(jog[i].getPontuacaoMaxima()) + " pts (" + std::to_string(jog[i].getNumeroDeJogos()) + " jogos)";
+                        ALLEGRO_COLOR cor;
+                        if (i == 0) cor = al_map_rgb(255, 215, 0); // Ouro
+                        else if (i == 1) cor = al_map_rgb(192, 192, 192); // Prata
+                        else if (i == 2) cor = al_map_rgb(205, 127, 50); // Bronze
+                        else cor = al_map_rgb(255, 255, 255); // Branco
+                        
+                        al_draw_text(font, cor, box_x + 20, box_y + 60 + i * 25, ALLEGRO_ALIGN_LEFT, texto.c_str());
+                    }
+                }
+                else {
+                    al_draw_text(font, al_map_rgb(255, 255, 255), SCREEN_WIDTH / 2, box_y + 120, ALLEGRO_ALIGN_CENTER, "Nenhum jogador cadastrado");
+                }
+
+                al_draw_text(font, al_map_rgb(200, 200, 200), SCREEN_WIDTH / 2, box_y + box_height - 30, ALLEGRO_ALIGN_CENTER, "Pressione ENTER ou ESC para voltar");
             }
-            }
+
+            al_flip_display();
         }
     }
 
-end_game:
+    //  limpa
     al_destroy_font(font);
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
     al_destroy_display(display);
+    cadastro_jogadores.salvarJogadores();
+
 
     return 0;
 }
+

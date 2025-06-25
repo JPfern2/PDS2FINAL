@@ -1,0 +1,54 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node43 [label="std::false_type",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node43 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="detail::has_from_json\l\< BasicJsonType, T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1has__from__json.html",tooltip=" "];
+  Node43 -> Node45 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node45 [label="detail::has_non_default\l_from_json\< BasicJsonType,\l T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1has__non__default__from__json.html",tooltip=" "];
+  Node43 -> Node46 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node46 [label="detail::has_to_json\l\< BasicJsonType, T,\l typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1has__to__json.html",tooltip=" "];
+  Node43 -> Node47 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node47 [label="detail::is_basic_json\l\< typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__basic__json.html",tooltip=" "];
+  Node43 -> Node48 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node48 [label="detail::is_comparable\l\< Compare, A, B, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__comparable.html",tooltip=" "];
+  Node43 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node49 [label="detail::is_compatible\l_array_type_impl\< BasicJson\lType, CompatibleArrayType,\l typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__array__type__impl.html",tooltip=" "];
+  Node49 -> Node50 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node50 [label="detail::is_compatible\l_array_type\< BasicJsonType,\l CompatibleArrayType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__array__type.html",tooltip=" "];
+  Node43 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node51 [label="detail::is_compatible\l_integer_type_impl\< RealInteger\lType, CompatibleNumberIntegerType,\l typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__integer__type__impl.html",tooltip=" "];
+  Node51 -> Node52 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node52 [label="detail::is_compatible\l_integer_type\< RealIntegerType,\l CompatibleNumberIntegerType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__integer__type.html",tooltip=" "];
+  Node43 -> Node53 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node53 [label="detail::is_compatible\l_object_type_impl\< BasicJson\lType, CompatibleObjectType,\l typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__object__type__impl.html",tooltip=" "];
+  Node53 -> Node54 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node54 [label="detail::is_compatible\l_object_type\< BasicJsonType,\l CompatibleObjectType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__object__type.html",tooltip=" "];
+  Node43 -> Node55 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node55 [label="detail::is_compatible\l_type_impl\< BasicJsonType,\l CompatibleType, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__type__impl.html",tooltip=" "];
+  Node55 -> Node56 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 [label="detail::is_compatible\l_type\< BasicJsonType,\l CompatibleType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__compatible__type.html",tooltip=" "];
+  Node43 -> Node57 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node57 [label="detail::is_complete\l_type\< T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__complete__type.html",tooltip=" "];
+  Node43 -> Node58 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node58 [label="detail::is_constructible\l_array_type_impl\< BasicJsonType,\l ConstructibleArrayType, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__constructible__array__type__impl.html",tooltip=" "];
+  Node58 -> Node59 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node59 [label="detail::is_constructible\l_array_type\< BasicJsonType,\l ConstructibleArrayType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__constructible__array__type.html",tooltip=" "];
+  Node43 -> Node60 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node60 [label="detail::is_constructible\l_object_type_impl\< BasicJsonType,\l ConstructibleObjectType, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__constructible__object__type__impl.html",tooltip=" "];
+  Node60 -> Node61 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node61 [label="detail::is_constructible\l_object_type\< BasicJsonType,\l ConstructibleObjectType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__constructible__object__type.html",tooltip=" "];
+  Node43 -> Node62 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node62 [label="detail::is_constructible\l_tuple\< T1, T2 \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__constructible__tuple.html",tooltip=" "];
+  Node43 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node63 [label="detail::is_iterator\l_traits\< T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__iterator__traits.html",tooltip=" "];
+  Node43 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node64 [label="detail::is_json_iterator\l_of\< BasicJsonType, T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__json__iterator__of.html",tooltip=" "];
+  Node43 -> Node65 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node65 [label="detail::is_json_ref\l\< typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__json__ref.html",tooltip=" "];
+  Node43 -> Node66 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node66 [label="detail::is_specialization\l_of\< Primary, T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdetail_1_1is__specialization__of.html",tooltip=" "];
+}

@@ -13,13 +13,19 @@ ListaDeJogadores::~ListaDeJogadores() {
 }
 
 void ListaDeJogadores::cadastrarJogador(Jogador& jogador) {
-    for (auto iterador : jogadores){
-        if (iterador.getApelido() == jogador.getApelido()) {
-            std::cout << "Jogador com apelido '" << jogador.getApelido() << "' já existe." << std::endl;
-            return;
+    auto it = std::find_if(jogadores.begin(), jogadores.end(),
+                           [&](const Jogador& j) { return j.getApelido() == jogador.getApelido(); });
+
+    if (it != jogadores.end()) {
+        // Jogador existente, atualizar
+        if (jogador.getPontuacaoMaxima() > it->getPontuacaoMaxima()) {
+            it->setPontuacaoMaxima(jogador.getPontuacaoMaxima());
         }
+        it->increaseNumeroDeJogos();
+    } else {
+        // Novo jogador, adicionar
+        jogadores.push_back(jogador);
     }
-    jogadores.push_back(jogador);
 }
 
 void ListaDeJogadores::removerJogador(const std::string& apelido) {
@@ -41,33 +47,38 @@ void ListaDeJogadores::listarJogadores() {
 }
 
 void ListaDeJogadores::carregarJogadores() {
-    std::ifstream arquivo("../assets/" + nome_arquivo);
-    
-    if (arquivo.is_open()) {
+    std::ifstream arquivo_leitura(nome_arquivo);
+    json j;
 
-        //Confeir se o JSON está vazio
-        arquivo.seekg(0, std::ios::end);
-        size_t tamanho = arquivo.tellg();
-        arquivo.seekg(0);
-
-        json j;
-
-        try {
-            if (tamanho > 0) {
-                arquivo >> j;
-            } else {
-                j = json::array();
+    if (arquivo_leitura.is_open()) {
+        // Verificar se o arquivo não está vazio antes de tentar parsear
+        arquivo_leitura.seekg(0, std::ios::end);
+        if (arquivo_leitura.tellg() > 0) {
+            arquivo_leitura.seekg(0, std::ios::beg);
+            try {
+                arquivo_leitura >> j;
+            } catch (const std::exception& e) {
+                std::cerr << "Erro ao carregar JSON: " << e.what() << std::endl;
+                j = json::array(); // Se houver erro, inicializa como array vazio
             }
-
-            jogadores.clear();
-
-            for (auto& iterador : j) {
-                Jogador auxiliar(iterador["nome"], iterador["apelido"], iterador["pontuacao_maxima"], iterador["numero_de_jogos"]);
-                jogadores.push_back(auxiliar);
-            }
-        } catch (const std::exception& e) {
-           //Adcionar exceção
+        } else {
+            j = json::array(); // Arquivo vazio, inicializa como array vazio
         }
+        arquivo_leitura.close();
+    } else {
+        // Arquivo não existe, criar um novo arquivo JSON vazio
+        std::ofstream arquivo_escrita(nome_arquivo);
+        if (arquivo_escrita.is_open()) {
+            arquivo_escrita << json::array().dump(4); // Escreve um array JSON vazio
+            arquivo_escrita.close();
+        }
+        j = json::array(); // Inicializa como array vazio
+    }
+
+    jogadores.clear();
+    for (auto& iterador : j) {
+        Jogador auxiliar(iterador["nome"], iterador["apelido"], iterador["pontuacao_maxima"], iterador["numero_de_jogos"]);
+        jogadores.push_back(auxiliar);
     }
 }
 
@@ -81,7 +92,7 @@ void ListaDeJogadores::salvarJogadores() {
             {"numero_de_jogos", jogador.getNumeroDeJogos()}
         });
     }
-    std::ofstream arquivo("../assets/" + nome_arquivo);
+    std::ofstream arquivo(nome_arquivo);
     if (arquivo.is_open()) {
         arquivo << j.dump(4);
     }

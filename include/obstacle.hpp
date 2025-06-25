@@ -20,6 +20,7 @@ public:
     bool hasScored() const;
     void markScored();
     void resetScored();
+    void setSpeed(float s);
 };
 
 #endif

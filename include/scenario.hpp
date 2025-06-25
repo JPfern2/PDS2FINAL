@@ -26,6 +26,7 @@ public:
     int getScore() const;
 
     void increaseScore();
+    void setObstacleSpeed(float speed);
 };
 
 #endif

@@ -34,3 +34,10 @@ void Obstacle::markScored() {
 void Obstacle::resetScored() {
     scored = false;
 }
+
+
+void Obstacle::setSpeed(float s) {
+    speed = s;
+}
+
+
