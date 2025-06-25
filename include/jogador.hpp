@@ -15,10 +15,10 @@ private:
 public:
     Jogador(const std::string& _nome, const std::string& _apelido, int _pontuacao_maxima, int _numero_de_jogos);
 
-    std::string getNome();
-    std::string getApelido();
-    int getPontuacaoMaxima();
-    int getNumeroDeJogos();
+    std::string getNome() const;
+    std::string getApelido() const;
+    int getPontuacaoMaxima() const;
+    int getNumeroDeJogos() const;
 
     void setPontuacaoMaxima(int nova_pontuacao);
     void increaseNumeroDeJogos();

@@ -1,0 +1,123 @@
+\hypertarget{classScenario}{}\doxysection{Scenario Class Reference}
+\label{classScenario}\index{Scenario@{Scenario}}
+
+
+{\ttfamily \#include $<$scenario.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classScenario_adf52ff2898ac8b7c7a12bdbcdcfc86dd}{Scenario}} (float \mbox{\hyperlink{classScenario_af1256e438aba4c2eccd8c9f42502f494}{gravity}}=0.\+5, float speed=2.\+0)
+\item 
+virtual \mbox{\hyperlink{classScenario_aa7e7548858cbc52614d46723c0333038}{$\sim$\+Scenario}} ()
+\item 
+virtual bool \mbox{\hyperlink{classScenario_a6b7dc075b1149dea252294a23a44e4d8}{update}} (\mbox{\hyperlink{classBird}{Bird}} \&bird)
+\item 
+virtual void \mbox{\hyperlink{classScenario_a5a2b2cdfb8437b1e7d4dd6ca1846f8be}{draw}} () const
+\item 
+void \mbox{\hyperlink{classScenario_a5a2201cff446cd8722d47930851654ff}{reset}} ()
+\item 
+int \mbox{\hyperlink{classScenario_ab66180ec4015536e2ef14b40a78a6616}{get\+Score}} () const
+\item 
+void \mbox{\hyperlink{classScenario_aac04526d2c6cff428e3568418d39436b}{increase\+Score}} ()
+\item 
+void \mbox{\hyperlink{classScenario_a78d27b459995a140ce44268a73b7cb4e}{set\+Obstacle\+Speed}} (float speed)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classScenario_af1256e438aba4c2eccd8c9f42502f494}{gravity}}
+\item 
+float \mbox{\hyperlink{classScenario_a5f779f84ca51c4407d6f01e5c091bce6}{obstacle\+Speed}}
+\item 
+int \mbox{\hyperlink{classScenario_a1c8692d3b9e830a22d20e269e01d0eac}{score}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classObstacle}{Obstacle}} $\ast$ $>$ \mbox{\hyperlink{classScenario_ac6055c36bb204be6d8715db63c6cd805}{obstacles}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classScenario_adf52ff2898ac8b7c7a12bdbcdcfc86dd}\label{classScenario_adf52ff2898ac8b7c7a12bdbcdcfc86dd}} 
+\index{Scenario@{Scenario}!Scenario@{Scenario}}
+\index{Scenario@{Scenario}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{Scenario()}{Scenario()}}
+{\footnotesize\ttfamily Scenario\+::\+Scenario (\begin{DoxyParamCaption}\item[{float}]{gravity = {\ttfamily 0.5},  }\item[{float}]{speed = {\ttfamily 2.0} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classScenario_aa7e7548858cbc52614d46723c0333038}\label{classScenario_aa7e7548858cbc52614d46723c0333038}} 
+\index{Scenario@{Scenario}!````~Scenario@{$\sim$Scenario}}
+\index{````~Scenario@{$\sim$Scenario}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{$\sim$Scenario()}{~Scenario()}}
+{\footnotesize\ttfamily Scenario\+::$\sim$\+Scenario (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classScenario_a5a2b2cdfb8437b1e7d4dd6ca1846f8be}\label{classScenario_a5a2b2cdfb8437b1e7d4dd6ca1846f8be}} 
+\index{Scenario@{Scenario}!draw@{draw}}
+\index{draw@{draw}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Scenario\+::draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classScenario_ab66180ec4015536e2ef14b40a78a6616}\label{classScenario_ab66180ec4015536e2ef14b40a78a6616}} 
+\index{Scenario@{Scenario}!getScore@{getScore}}
+\index{getScore@{getScore}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{getScore()}{getScore()}}
+{\footnotesize\ttfamily int Scenario\+::get\+Score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classScenario_aac04526d2c6cff428e3568418d39436b}\label{classScenario_aac04526d2c6cff428e3568418d39436b}} 
+\index{Scenario@{Scenario}!increaseScore@{increaseScore}}
+\index{increaseScore@{increaseScore}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{increaseScore()}{increaseScore()}}
+{\footnotesize\ttfamily void Scenario\+::increase\+Score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classScenario_a5a2201cff446cd8722d47930851654ff}\label{classScenario_a5a2201cff446cd8722d47930851654ff}} 
+\index{Scenario@{Scenario}!reset@{reset}}
+\index{reset@{reset}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Scenario\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classScenario_a78d27b459995a140ce44268a73b7cb4e}\label{classScenario_a78d27b459995a140ce44268a73b7cb4e}} 
+\index{Scenario@{Scenario}!setObstacleSpeed@{setObstacleSpeed}}
+\index{setObstacleSpeed@{setObstacleSpeed}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{setObstacleSpeed()}{setObstacleSpeed()}}
+{\footnotesize\ttfamily void Scenario\+::set\+Obstacle\+Speed (\begin{DoxyParamCaption}\item[{float}]{speed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classScenario_a6b7dc075b1149dea252294a23a44e4d8}\label{classScenario_a6b7dc075b1149dea252294a23a44e4d8}} 
+\index{Scenario@{Scenario}!update@{update}}
+\index{update@{update}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily bool Scenario\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBird}{Bird}} \&}]{bird }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classScenario_af1256e438aba4c2eccd8c9f42502f494}\label{classScenario_af1256e438aba4c2eccd8c9f42502f494}} 
+\index{Scenario@{Scenario}!gravity@{gravity}}
+\index{gravity@{gravity}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{gravity}{gravity}}
+{\footnotesize\ttfamily float Scenario\+::gravity\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classScenario_ac6055c36bb204be6d8715db63c6cd805}\label{classScenario_ac6055c36bb204be6d8715db63c6cd805}} 
+\index{Scenario@{Scenario}!obstacles@{obstacles}}
+\index{obstacles@{obstacles}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{obstacles}{obstacles}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classObstacle}{Obstacle}}$\ast$$>$ Scenario\+::obstacles\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classScenario_a5f779f84ca51c4407d6f01e5c091bce6}\label{classScenario_a5f779f84ca51c4407d6f01e5c091bce6}} 
+\index{Scenario@{Scenario}!obstacleSpeed@{obstacleSpeed}}
+\index{obstacleSpeed@{obstacleSpeed}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{obstacleSpeed}{obstacleSpeed}}
+{\footnotesize\ttfamily float Scenario\+::obstacle\+Speed\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classScenario_a1c8692d3b9e830a22d20e269e01d0eac}\label{classScenario_a1c8692d3b9e830a22d20e269e01d0eac}} 
+\index{Scenario@{Scenario}!score@{score}}
+\index{score@{score}!Scenario@{Scenario}}
+\doxysubsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily int Scenario\+::score\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{scenario_8hpp}{scenario.\+hpp}}\item 
+src/\mbox{\hyperlink{scenario_8cpp}{scenario.\+cpp}}\end{DoxyCompactItemize}

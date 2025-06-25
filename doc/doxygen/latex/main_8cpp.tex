@@ -1,0 +1,90 @@
+\hypertarget{main_8cpp}{}\doxysection{src/main.cpp File Reference}
+\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include $<$allegro5/allegro.\+h$>$}\newline
+{\ttfamily \#include $<$allegro5/allegro\+\_\+font.\+h$>$}\newline
+{\ttfamily \#include $<$allegro5/allegro\+\_\+primitives.\+h$>$}\newline
+{\ttfamily \#include $<$allegro5/allegro\+\_\+ttf.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include \char`\"{}../include/bird.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../include/scenario.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../include/\+Lista\+De\+Jogadores.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../include/jogador.\+hpp\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a2cd109632a6dcccaa80b43561b1ab700}{SCREEN\+\_\+\+WIDTH}}~800
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a6974d08a74da681b3957b2fead2608b8}{SCREEN\+\_\+\+HEIGHT}}~600
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285}{Game\+State}} \{ \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285ad7f634888b7438d01009934352e5a23b}{NICKNAME\+\_\+\+INPUT}}
+, \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af095245f5cebc27a97a124345269fed8}{PLAYING}}
+, \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285a871723195985a4ae22d7e10d99bf8a00}{GAME\+\_\+\+OVER}}
+, \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af870eaec0f5f73245d65a8bf1a8a7fdf}{RANKING}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8cpp_a6974d08a74da681b3957b2fead2608b8}\label{main_8cpp_a6974d08a74da681b3957b2fead2608b8}} 
+\index{main.cpp@{main.cpp}!SCREEN\_HEIGHT@{SCREEN\_HEIGHT}}
+\index{SCREEN\_HEIGHT@{SCREEN\_HEIGHT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_HEIGHT}{SCREEN\_HEIGHT}}
+{\footnotesize\ttfamily \#define SCREEN\+\_\+\+HEIGHT~600}
+
+\mbox{\Hypertarget{main_8cpp_a2cd109632a6dcccaa80b43561b1ab700}\label{main_8cpp_a2cd109632a6dcccaa80b43561b1ab700}} 
+\index{main.cpp@{main.cpp}!SCREEN\_WIDTH@{SCREEN\_WIDTH}}
+\index{SCREEN\_WIDTH@{SCREEN\_WIDTH}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_WIDTH}{SCREEN\_WIDTH}}
+{\footnotesize\ttfamily \#define SCREEN\+\_\+\+WIDTH~800}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285}\label{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285}} 
+\index{main.cpp@{main.cpp}!GameState@{GameState}}
+\index{GameState@{GameState}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{GameState}{GameState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285}{Game\+State}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NICKNAME\_INPUT@{NICKNAME\_INPUT}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!NICKNAME\_INPUT@{NICKNAME\_INPUT}}}\mbox{\Hypertarget{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285ad7f634888b7438d01009934352e5a23b}\label{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285ad7f634888b7438d01009934352e5a23b}} 
+NICKNAME\+\_\+\+INPUT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAYING@{PLAYING}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!PLAYING@{PLAYING}}}\mbox{\Hypertarget{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af095245f5cebc27a97a124345269fed8}\label{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af095245f5cebc27a97a124345269fed8}} 
+PLAYING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GAME\_OVER@{GAME\_OVER}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!GAME\_OVER@{GAME\_OVER}}}\mbox{\Hypertarget{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285a871723195985a4ae22d7e10d99bf8a00}\label{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285a871723195985a4ae22d7e10d99bf8a00}} 
+GAME\+\_\+\+OVER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RANKING@{RANKING}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!RANKING@{RANKING}}}\mbox{\Hypertarget{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af870eaec0f5f73245d65a8bf1a8a7fdf}\label{main_8cpp_a7899b65f1ea0f655e4bbf8d2a5714285af870eaec0f5f73245d65a8bf1a8a7fdf}} 
+RANKING&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

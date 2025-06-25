@@ -1,0 +1,175 @@
+\hypertarget{classGameObject}{}\doxysection{Game\+Object Class Reference}
+\label{classGameObject}\index{GameObject@{GameObject}}
+
+
+{\ttfamily \#include $<$game\+\_\+object.\+hpp$>$}
+
+
+
+Inheritance diagram for Game\+Object\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGameObject_a99c61b751ac19167f1a4c503e728077a}{Game\+Object}} (float \mbox{\hyperlink{classGameObject_ad4976cd29785cf9bd791148ff397c41e}{x}}, float \mbox{\hyperlink{classGameObject_a9ac54f1c686ecf5656139a829ed62041}{y}}, float w, float h)
+\item 
+virtual \mbox{\hyperlink{classGameObject_a67ae2fa6e7916c799700cd659975d8ea}{$\sim$\+Game\+Object}} ()=default
+\item 
+virtual void \mbox{\hyperlink{classGameObject_ae83128d0e0efef691417779605ee037c}{update}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classGameObject_a05e5306f4307d451cdbf41d83a953642}{draw}} () const =0
+\item 
+virtual bool \mbox{\hyperlink{classGameObject_aa49547b002c8eff10d808c08f19319a6}{collides\+With}} (const \mbox{\hyperlink{classGameObject}{Game\+Object}} \&other) const
+\item 
+float \mbox{\hyperlink{classGameObject_abe61df236efb58849b29d242d87fc59f}{getX}} () const
+\item 
+float \mbox{\hyperlink{classGameObject_a3f55728263b9ce2407459d14b9861b04}{getY}} () const
+\item 
+float \mbox{\hyperlink{classGameObject_a665147ee46e9b62442b2d6b9835c4dd4}{get\+Width}} () const
+\item 
+float \mbox{\hyperlink{classGameObject_a927400453a0989e2f5b765031f4d861c}{get\+Height}} () const
+\item 
+void \mbox{\hyperlink{classGameObject_a8b3f802e0b03be942ee94f7f30d3a919}{setX}} (float newX)
+\item 
+void \mbox{\hyperlink{classGameObject_a26c7432d1f6c2596c1a88e0574b9fae9}{setY}} (float newY)
+\item 
+void \mbox{\hyperlink{classGameObject_a051a4563dd8f336c83cce8ea1bbbf9af}{set\+Width}} (float new\+Width)
+\item 
+void \mbox{\hyperlink{classGameObject_a529e645129e0dbcf30387b83d80d90c8}{set\+Height}} (float new\+Height)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{classGameObject_ad4976cd29785cf9bd791148ff397c41e}{x}}
+\item 
+float \mbox{\hyperlink{classGameObject_a9ac54f1c686ecf5656139a829ed62041}{y}}
+\item 
+float \mbox{\hyperlink{classGameObject_af797cec05ff1d3cbc694fc7036add37b}{width}}
+\item 
+float \mbox{\hyperlink{classGameObject_a0ae9c255f47b6148c26d0333a72d0625}{height}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameObject_a99c61b751ac19167f1a4c503e728077a}\label{classGameObject_a99c61b751ac19167f1a4c503e728077a}} 
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\index{GameObject@{GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{GameObject()}{GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{w,  }\item[{float}]{h }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGameObject_a67ae2fa6e7916c799700cd659975d8ea}\label{classGameObject_a67ae2fa6e7916c799700cd659975d8ea}} 
+\index{GameObject@{GameObject}!````~GameObject@{$\sim$GameObject}}
+\index{````~GameObject@{$\sim$GameObject}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{$\sim$GameObject()}{~GameObject()}}
+{\footnotesize\ttfamily virtual Game\+Object\+::$\sim$\+Game\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameObject_aa49547b002c8eff10d808c08f19319a6}\label{classGameObject_aa49547b002c8eff10d808c08f19319a6}} 
+\index{GameObject@{GameObject}!collidesWith@{collidesWith}}
+\index{collidesWith@{collidesWith}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{collidesWith()}{collidesWith()}}
+{\footnotesize\ttfamily bool Game\+Object\+::collides\+With (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classGameObject}{Game\+Object}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classGameObject_a05e5306f4307d451cdbf41d83a953642}\label{classGameObject_a05e5306f4307d451cdbf41d83a953642}} 
+\index{GameObject@{GameObject}!draw@{draw}}
+\index{draw@{draw}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily virtual void Game\+Object\+::draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classObstacle_ad4c2176ce337d610254c69ca1dca3589}{Obstacle}}, and \mbox{\hyperlink{classBird_ad88ff6df269c029bb1519f4e8ebc598a}{Bird}}.
+
+\mbox{\Hypertarget{classGameObject_a927400453a0989e2f5b765031f4d861c}\label{classGameObject_a927400453a0989e2f5b765031f4d861c}} 
+\index{GameObject@{GameObject}!getHeight@{getHeight}}
+\index{getHeight@{getHeight}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getHeight()}{getHeight()}}
+{\footnotesize\ttfamily float Game\+Object\+::get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGameObject_a665147ee46e9b62442b2d6b9835c4dd4}\label{classGameObject_a665147ee46e9b62442b2d6b9835c4dd4}} 
+\index{GameObject@{GameObject}!getWidth@{getWidth}}
+\index{getWidth@{getWidth}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getWidth()}{getWidth()}}
+{\footnotesize\ttfamily float Game\+Object\+::get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGameObject_abe61df236efb58849b29d242d87fc59f}\label{classGameObject_abe61df236efb58849b29d242d87fc59f}} 
+\index{GameObject@{GameObject}!getX@{getX}}
+\index{getX@{getX}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getX()}{getX()}}
+{\footnotesize\ttfamily float Game\+Object\+::getX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGameObject_a3f55728263b9ce2407459d14b9861b04}\label{classGameObject_a3f55728263b9ce2407459d14b9861b04}} 
+\index{GameObject@{GameObject}!getY@{getY}}
+\index{getY@{getY}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{getY()}{getY()}}
+{\footnotesize\ttfamily float Game\+Object\+::getY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGameObject_a529e645129e0dbcf30387b83d80d90c8}\label{classGameObject_a529e645129e0dbcf30387b83d80d90c8}} 
+\index{GameObject@{GameObject}!setHeight@{setHeight}}
+\index{setHeight@{setHeight}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setHeight()}{setHeight()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Height (\begin{DoxyParamCaption}\item[{float}]{new\+Height }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGameObject_a051a4563dd8f336c83cce8ea1bbbf9af}\label{classGameObject_a051a4563dd8f336c83cce8ea1bbbf9af}} 
+\index{GameObject@{GameObject}!setWidth@{setWidth}}
+\index{setWidth@{setWidth}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setWidth()}{setWidth()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Width (\begin{DoxyParamCaption}\item[{float}]{new\+Width }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGameObject_a8b3f802e0b03be942ee94f7f30d3a919}\label{classGameObject_a8b3f802e0b03be942ee94f7f30d3a919}} 
+\index{GameObject@{GameObject}!setX@{setX}}
+\index{setX@{setX}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setX()}{setX()}}
+{\footnotesize\ttfamily void Game\+Object\+::setX (\begin{DoxyParamCaption}\item[{float}]{newX }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGameObject_a26c7432d1f6c2596c1a88e0574b9fae9}\label{classGameObject_a26c7432d1f6c2596c1a88e0574b9fae9}} 
+\index{GameObject@{GameObject}!setY@{setY}}
+\index{setY@{setY}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{setY()}{setY()}}
+{\footnotesize\ttfamily void Game\+Object\+::setY (\begin{DoxyParamCaption}\item[{float}]{newY }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGameObject_ae83128d0e0efef691417779605ee037c}\label{classGameObject_ae83128d0e0efef691417779605ee037c}} 
+\index{GameObject@{GameObject}!update@{update}}
+\index{update@{update}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual void Game\+Object\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classObstacle_a364dccd77940891fa2751615314f8c13}{Obstacle}}, and \mbox{\hyperlink{classBird_ae295f7338e168cd216a569d07866743c}{Bird}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classGameObject_a0ae9c255f47b6148c26d0333a72d0625}\label{classGameObject_a0ae9c255f47b6148c26d0333a72d0625}} 
+\index{GameObject@{GameObject}!height@{height}}
+\index{height@{height}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily float Game\+Object\+::height\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classGameObject_af797cec05ff1d3cbc694fc7036add37b}\label{classGameObject_af797cec05ff1d3cbc694fc7036add37b}} 
+\index{GameObject@{GameObject}!width@{width}}
+\index{width@{width}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily float Game\+Object\+::width\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classGameObject_ad4976cd29785cf9bd791148ff397c41e}\label{classGameObject_ad4976cd29785cf9bd791148ff397c41e}} 
+\index{GameObject@{GameObject}!x@{x}}
+\index{x@{x}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily float Game\+Object\+::x\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classGameObject_a9ac54f1c686ecf5656139a829ed62041}\label{classGameObject_a9ac54f1c686ecf5656139a829ed62041}} 
+\index{GameObject@{GameObject}!y@{y}}
+\index{y@{y}!GameObject@{GameObject}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily float Game\+Object\+::y\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{game__object_8hpp}{game\+\_\+object.\+hpp}}\item 
+src/\mbox{\hyperlink{game__object_8cpp}{game\+\_\+object.\+cpp}}\end{DoxyCompactItemize}

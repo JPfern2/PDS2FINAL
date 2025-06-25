@@ -1,0 +1,110 @@
+\hypertarget{classObstacle}{}\doxysection{Obstacle Class Reference}
+\label{classObstacle}\index{Obstacle@{Obstacle}}
+
+
+{\ttfamily \#include $<$obstacle.\+hpp$>$}
+
+
+
+Inheritance diagram for Obstacle\+:
+% FIG 0
+
+
+Collaboration diagram for Obstacle\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classObstacle_a9a338858bf3daba6130875cdb66a6d39}{Obstacle}} (float \mbox{\hyperlink{classGameObject_ad4976cd29785cf9bd791148ff397c41e}{x}}, float \mbox{\hyperlink{classGameObject_a9ac54f1c686ecf5656139a829ed62041}{y}}, float w, float h, float speed=2.\+0)
+\item 
+void \mbox{\hyperlink{classObstacle_a364dccd77940891fa2751615314f8c13}{update}} () override
+\item 
+void \mbox{\hyperlink{classObstacle_ad4c2176ce337d610254c69ca1dca3589}{draw}} () const override
+\item 
+void \mbox{\hyperlink{classObstacle_aea6a82251a06235fc41cbb83e6501fd2}{move}} (float dx)
+\item 
+bool \mbox{\hyperlink{classObstacle_a75671af8dc876d57a0cd824ade3e3327}{is\+Off\+Screen}} () const
+\item 
+bool \mbox{\hyperlink{classObstacle_a22c2fe36e64aeed5e8489f769f599690}{has\+Scored}} () const
+\item 
+void \mbox{\hyperlink{classObstacle_ae31f7c19cfc27da519d7577fbe269aaf}{mark\+Scored}} ()
+\item 
+void \mbox{\hyperlink{classObstacle_a2685e241ed74d678a5e97ab93ae5b27c}{reset\+Scored}} ()
+\item 
+void \mbox{\hyperlink{classObstacle_a22dc5973c0284536a4034412124efef3}{set\+Speed}} (float s)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classObstacle_a9a338858bf3daba6130875cdb66a6d39}\label{classObstacle_a9a338858bf3daba6130875cdb66a6d39}} 
+\index{Obstacle@{Obstacle}!Obstacle@{Obstacle}}
+\index{Obstacle@{Obstacle}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{Obstacle()}{Obstacle()}}
+{\footnotesize\ttfamily Obstacle\+::\+Obstacle (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{w,  }\item[{float}]{h,  }\item[{float}]{speed = {\ttfamily 2.0} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classObstacle_ad4c2176ce337d610254c69ca1dca3589}\label{classObstacle_ad4c2176ce337d610254c69ca1dca3589}} 
+\index{Obstacle@{Obstacle}!draw@{draw}}
+\index{draw@{draw}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Obstacle\+::draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classGameObject_a05e5306f4307d451cdbf41d83a953642}{Game\+Object}}.
+
+\mbox{\Hypertarget{classObstacle_a22c2fe36e64aeed5e8489f769f599690}\label{classObstacle_a22c2fe36e64aeed5e8489f769f599690}} 
+\index{Obstacle@{Obstacle}!hasScored@{hasScored}}
+\index{hasScored@{hasScored}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{hasScored()}{hasScored()}}
+{\footnotesize\ttfamily bool Obstacle\+::has\+Scored (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classObstacle_a75671af8dc876d57a0cd824ade3e3327}\label{classObstacle_a75671af8dc876d57a0cd824ade3e3327}} 
+\index{Obstacle@{Obstacle}!isOffScreen@{isOffScreen}}
+\index{isOffScreen@{isOffScreen}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{isOffScreen()}{isOffScreen()}}
+{\footnotesize\ttfamily bool Obstacle\+::is\+Off\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classObstacle_ae31f7c19cfc27da519d7577fbe269aaf}\label{classObstacle_ae31f7c19cfc27da519d7577fbe269aaf}} 
+\index{Obstacle@{Obstacle}!markScored@{markScored}}
+\index{markScored@{markScored}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{markScored()}{markScored()}}
+{\footnotesize\ttfamily void Obstacle\+::mark\+Scored (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classObstacle_aea6a82251a06235fc41cbb83e6501fd2}\label{classObstacle_aea6a82251a06235fc41cbb83e6501fd2}} 
+\index{Obstacle@{Obstacle}!move@{move}}
+\index{move@{move}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Obstacle\+::move (\begin{DoxyParamCaption}\item[{float}]{dx }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classObstacle_a2685e241ed74d678a5e97ab93ae5b27c}\label{classObstacle_a2685e241ed74d678a5e97ab93ae5b27c}} 
+\index{Obstacle@{Obstacle}!resetScored@{resetScored}}
+\index{resetScored@{resetScored}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{resetScored()}{resetScored()}}
+{\footnotesize\ttfamily void Obstacle\+::reset\+Scored (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classObstacle_a22dc5973c0284536a4034412124efef3}\label{classObstacle_a22dc5973c0284536a4034412124efef3}} 
+\index{Obstacle@{Obstacle}!setSpeed@{setSpeed}}
+\index{setSpeed@{setSpeed}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{setSpeed()}{setSpeed()}}
+{\footnotesize\ttfamily void Obstacle\+::set\+Speed (\begin{DoxyParamCaption}\item[{float}]{s }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classObstacle_a364dccd77940891fa2751615314f8c13}\label{classObstacle_a364dccd77940891fa2751615314f8c13}} 
+\index{Obstacle@{Obstacle}!update@{update}}
+\index{update@{update}!Obstacle@{Obstacle}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Obstacle\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classGameObject_ae83128d0e0efef691417779605ee037c}{Game\+Object}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{obstacle_8hpp}{obstacle.\+hpp}}\item 
+src/\mbox{\hyperlink{obstacle_8cpp}{obstacle.\+cpp}}\end{DoxyCompactItemize}

@@ -4,10 +4,10 @@ Jogador::Jogador(const std::string& _nome, const std::string& _apelido, int _pon
     : nome(_nome), apelido(_apelido), pontuacao_maxima(_pontuacao_maxima), numero_de_jogos(_numero_de_jogos) {
 }
 
-std::string Jogador::getNome() { return nome; }
-std::string Jogador::getApelido() { return apelido; }
-int Jogador::getPontuacaoMaxima() { return pontuacao_maxima; }
-int Jogador::getNumeroDeJogos() { return numero_de_jogos; }
+std::string Jogador::getNome() const { return nome; }
+std::string Jogador::getApelido() const { return apelido; }
+int Jogador::getPontuacaoMaxima() const { return pontuacao_maxima; }
+int Jogador::getNumeroDeJogos() const { return numero_de_jogos; }
 
 void Jogador::setPontuacaoMaxima(int nova_pontuacao) {
     if (nova_pontuacao > pontuacao_maxima) {

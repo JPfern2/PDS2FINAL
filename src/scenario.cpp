@@ -108,3 +108,13 @@ int Scenario::getScore() const {
 void Scenario::increaseScore() {
     score++;
 }
+
+
+void Scenario::setObstacleSpeed(float speed) {
+    obstacleSpeed = speed;
+    for (Obstacle* obs : obstacles) {
+        obs->setSpeed(speed);
+    }
+}
+
+
