@@ -43,10 +43,15 @@ void drawMenu(ALLEGRO_FONT* font, int selectedOption) {
     al_flip_display();
 }
 
-void drawCadastroScreen(ALLEGRO_FONT* font, const std::string& nome, const std::string& apelido) {
+void drawCadastroScreen(ALLEGRO_FONT* font, const std::string& nome, const std::string& apelido, bool apelido_existente) {
     al_clear_to_color(al_map_rgb(135, 206, 235));
 
     al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 100, ALLEGRO_ALIGN_CENTER, "CADASTRO DE JOGADOR");
+
+    if (apelido_existente) {
+    al_draw_text(font, al_map_rgb(255, 0, 0), SCREEN_WIDTH / 2, 300, ALLEGRO_ALIGN_CENTER,
+        "Esse apelido já está cadastrado. Tente outro.");
+    }
 
     al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_WIDTH / 2, 200, ALLEGRO_ALIGN_CENTER,
         ("Nome: " + nome).c_str());
@@ -94,6 +99,7 @@ int main() {
     std::string nomeJogador = "";
     std::string apelidoJogador = "";
     bool typingName = true;
+    bool apelido_existente = false;
     ListaDeJogadores cadastro_jogadores("BaseJogadores.json");
 
     Bird bird(100, SCREEN_HEIGHT / 2);
@@ -110,7 +116,7 @@ int main() {
             break;
         }
 
-        if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+        else if (ev.type == ALLEGRO_EVENT_KEY_CHAR) {
             switch (gameState) {
             case MENU:
                 if (ev.keyboard.keycode == ALLEGRO_KEY_DOWN) {
@@ -156,18 +162,32 @@ int main() {
                     }
                     else {
                         if (!nomeJogador.empty() && !apelidoJogador.empty()) {
-                            Jogador novoJogador(nomeJogador, apelidoJogador, 0, 0);
-                            cadastro_jogadores.cadastrarJogador(novoJogador);
-                            gameState = MENU;
+
+                            apelido_existente = false;
+                            for(Jogador& j : cadastro_jogadores.getJogadores()) {
+                                if (j.getApelido() == apelidoJogador) {
+                                    apelido_existente = true;
+                                    typingName = false;
+                                    break;
+                                }
+                            }
+
+                            if(!apelido_existente) {
+                                Jogador novoJogador(nomeJogador, apelidoJogador, 0, 0);
+                                cadastro_jogadores.cadastrarJogador(novoJogador);
+                                gameState = MENU;
+                            }
                         }
                     }
                 }
                 else if (ev.keyboard.unichar >= 32 && ev.keyboard.unichar <= 126) {
                     if (typingName) {
-                        nomeJogador += ev.keyboard.unichar;
+                        if(nomeJogador.length() < 20)
+                            nomeJogador += ev.keyboard.unichar;
                     }
                     else {
-                        apelidoJogador += ev.keyboard.unichar;
+                        if(apelidoJogador.length() < 20)
+                            apelidoJogador += ev.keyboard.unichar;
                     }
                 }
                 break;
@@ -219,7 +239,7 @@ int main() {
             }
 
             case CADASTRO: {
-                drawCadastroScreen(font, nomeJogador, apelidoJogador);
+                drawCadastroScreen(font, nomeJogador, apelidoJogador, apelido_existente);
                 break;
             }
 
@@ -271,7 +291,8 @@ int main() {
                 al_draw_rectangle(retangulo_X, retangulo_Y, retangulo_X + retangulo_Larg, retangulo_Y + retangulo_Alt, al_map_rgb(255, 255, 255), 2);
 
                 // Mensagens e Ranking
-                al_draw_text(font, al_map_rgb(255, 0, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 10, ALLEGRO_ALIGN_CENTER, "VOCÊ PERDEU!");
+                std::string frase = "VOCÊ PERDEU! - Pontuação: " + std::to_string(scenario.getScore());
+                al_draw_text(font, al_map_rgb(255, 0, 0), retangulo_X + retangulo_Larg / 2, retangulo_Y + 10, ALLEGRO_ALIGN_CENTER, frase.c_str());
                 al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + 40, ALLEGRO_ALIGN_CENTER, "Ranking dos Jogadores");
 
                 std::vector<Jogador> jog = cadastro_jogadores.getJogadores();
@@ -294,7 +315,7 @@ int main() {
                 else {
                     al_draw_text(font, al_map_rgb(255, 255, 255), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt / 2, ALLEGRO_ALIGN_CENTER, "Nenhum jogador cadastrado");
                 }
-                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y + retangulo_Alt - 30, ALLEGRO_ALIGN_CENTER, "Pressione R para Reiniciar ou ESC para Menu");
+                al_draw_text(font, al_map_rgb(200, 200, 200), retangulo_X + retangulo_Larg / 2, retangulo_Y - 10, ALLEGRO_ALIGN_CENTER, "Pressione R para Reiniciar ou ESC para Menu");
 
                 al_flip_display();
                 break;
@@ -304,6 +325,7 @@ int main() {
     }
 
 end_game:
+    cadastro_jogadores.salvarJogadores();
     al_destroy_font(font);
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
