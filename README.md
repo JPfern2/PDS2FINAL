@@ -1,84 +1,77 @@
-# Flappy Bird - Projeto Final PDS II
+Flappy Bird — Projeto Final de Programação e Desenvolvimento de Software II (PDS II)
+1. Introdução
+Este projeto tem como objetivo a implementação do jogo Flappy Bird em C++, utilizando a biblioteca Allegro 5. A proposta visa consolidar os conceitos de Programação Orientada a Objetos (POO), modularização de código, uso de controle de versão (Git/GitHub), testes unitários e documentação de software.
 
-## 1. Introdução
+2. Visão Geral da Solução
+O projeto é dividido em três partes principais:
+2.1. Dinâmica do Jogo
+Responsável por controlar o cenário, a pontuação e as regras da partida. A classe Scenario cuida da atualização dos obstáculos e da pontuação do jogador, além de oferecer métodos para modificar parâmetros como gravidade e velocidade dos obstáculos, permitindo diferentes configurações de jogo.
+2.2. Elementos do Jogo
+As entidades do jogo (como o Bird e os Obstacles) são modeladas por meio de uma hierarquia de classes, com uma superclasse abstrata GameObject. Essa estrutura promove reuso de código e facilita a manutenção. A classe Bird possui lógica específica para movimentação e permite configurar a força do pulo.
+2.3. Cadastro e Ranking de Jogadores
+O sistema registra o apelido do jogador e salva sua maior pontuação em um arquivo persistente. As classes jogador e ListadeDeJogares  gerenciam esses dados. A interface inclui uma tela de entrada de apelido e uma tela de ranking com os 10 melhores jogadores.
 
-Este projeto consiste na implementação do jogo Flappy Bird utilizando a linguagem C++ e a biblioteca Allegro. O objetivo principal é aplicar os conceitos de Programação Orientada a Objetos (POO), modularidade e corretude, além de utilizar ferramentas de controle de versão (Git/GitHub), testes unitários e documentação.
-
-## 2. Visão Geral da Solução
-
-O sistema é dividido em três partes principais:
-
-### 2.1. Classes para a Dinâmica do Jogo
-
-Responsável por gerenciar o cenário, a pontuação e as características do jogo. A classe `Scenario` lida com a atualização e renderização dos obstáculos, além de calcular a pontuação do jogador. Foram adicionados métodos para permitir a alteração da gravidade e da velocidade dos obstáculos, oferecendo maior flexibilidade para diferentes cenários de jogo.
-
-### 2.2. Hierarquia de Classes para os Elementos do Jogo
-
-Define os elementos interativos do jogo, como o pássaro (`Bird`) e os obstáculos (`Obstacle`). A classe base `GameObject` fornece funcionalidades comuns, enquanto as classes herdeiras especializam o comportamento de cada elemento. Métodos para detecção de colisão e atualização de movimento são implementados nessas classes. A classe `Bird` agora permite a alteração da força do pulo.
-
-### 2.3. Módulo de Cadastro de Jogadores
-
-Gerencia o registro e as estatísticas dos jogadores. A classe `ListaDeJogadores` é responsável por cadastrar, remover e listar jogadores, além de manter o registro da maior pontuação. Os dados dos jogadores são persistidos em um arquivo JSON (`assets/BaseJogadores.json`) entre as execuções do sistema, garantindo que o ranking seja mantido.
-
-## 3. Execução de Partidas e Interface de Usuário
-
-O jogo inicia com uma tela de entrada onde o jogador deve digitar seu apelido. A navegação entre as telas (entrada de apelido, jogo, game over e ranking) é controlada por um sistema de estados. Durante a partida, o pássaro é controlado pela tecla ESPAÇO. Ao final da partida, as estatísticas do jogador são atualizadas e salvas automaticamente. O ranking dos 10 melhores jogadores é exibido, e o jogador pode optar por jogar novamente, iniciar um novo jogador ou visualizar o ranking completo.
-
-## 4. Estrutura do Diretório do Projeto
-
-O projeto segue a seguinte estrutura de diretórios:
-
-- `assets/`: Contém recursos como o arquivo JSON de jogadores.
-- `bin/`: Armazena os executáveis gerados.
-- `include/`: Contém os arquivos de cabeçalho (.hpp).
-- `obj/`: Guarda os arquivos objeto (.o) gerados durante a compilação.
-- `src/`: Contém os arquivos de código-fonte (.cpp).
-- `tests/`: Abriga os arquivos de teste (a ser implementado).
-- `.gitignore`: Lista arquivos e pastas a serem ignorados pelo Git.
-- `makefile`: Contém instruções para automatizar a compilação do projeto.
-- `README.md`: Este arquivo, com informações sobre o projeto.
-
-## 5. Como Compilar e Executar
-
-Para compilar e executar o projeto, siga os passos abaixo:
-
-1. **Instalar Allegro 5:** Certifique-se de ter a biblioteca Allegro 5 instalada em seu sistema. No Ubuntu/Debian, você pode instalá-la com:
-   ```bash
-   sudo apt-get install liballegro5-dev
-   ```
-
-2. **Navegar até o diretório do projeto:**
-   ```bash
-   cd /home/ubuntu/TrabalhoFinalPDS2
-   ```
-
-3. **Compilar o projeto:**
-   ```bash
-   make all
-   ```
-
-4. **Executar o jogo:**
-   ```bash
-   ./bin/flappy_bird
-   ```
-
-## 6. Funcionalidades Extras Implementadas
-
-- **Sistema de Ranking Persistente**: O jogo agora salva e carrega o ranking dos jogadores em um arquivo JSON, mantendo as pontuações e o número de jogos entre as sessões.
-- **Entrada de Apelido**: Uma tela inicial permite que o jogador insira seu apelido antes de começar a jogar.
-- **Controle de Estados do Jogo**: Implementação de um sistema de estados para gerenciar a transição entre as telas de entrada de apelido, jogo, game over e ranking.
-- **Flexibilidade de Jogo**: Adição de métodos para alterar a gravidade e a força do pulo do pássaro, e a velocidade dos obstáculos, permitindo futuras customizações ou diferentes modos de jogo.
-
-## 7. Dificuldades Encontradas
-
-- **Gerenciamento de Memória com Allegro**: A integração com a biblioteca Allegro exigiu atenção especial ao gerenciamento de recursos (displays, timers, filas de eventos, fontes) para evitar vazamentos de memória e garantir o correto encerramento do programa.
-- **Persistência de Dados JSON**: A manipulação de arquivos JSON para salvar e carregar os dados dos jogadores apresentou desafios na serialização e desserialização de objetos C++, que foram superados com a utilização da biblioteca `nlohmann/json`.
-- **Compilação e Dependências**: A configuração do `makefile` para compilar o projeto com todas as dependências do Allegro e garantir a compatibilidade entre os diferentes arquivos-fonte foi um ponto de atenção.
-
-## 8. Próximos Passos (Conforme Requisitos do Projeto)
-
-- **Testes Unitários**: Implementar testes unitários utilizando a biblioteca `doctest` para garantir a corretude das classes e métodos.
-- **Documentação Doxygen**: Gerar a documentação completa do código-fonte utilizando Doxygen.
+3. Execução do Jogo e Interface do Usuário
+O jogo segue uma estrutura de estados, alternando entre as seguintes telas:
+Tela de entrada: o jogador digita seu apelido.
 
 
+Tela de jogo: o jogador controla o pássaro com a tecla ESPAÇO.
 
+
+Game Over: a pontuação é salva automaticamente.
+
+
+Ranking: os 10 jogadores com maior pontuação são exibidos.
+
+
+Ao final da partida, o jogador pode reiniciar o jogo, trocar de jogador ou apenas visualizar o ranking.
+4. Estrutura de Diretórios
+
+assets/     → Arquivos de mídia e fontes (ex: fontes TTF).
+bin/        → Executáveis gerados.
+include/    → Arquivos de cabeçalho (.hpp).
+obj/        → Arquivos objeto (.o) da compilação.
+src/        → Código-fonte do projeto (.cpp).
+tests/      → Testes unitários.
+.gitignore  → Arquivos e pastas ignoradas pelo Git.
+Makefile    → Regras de compilação.
+README      → Descrição do projeto.
+
+5. Como Compilar e Executar
+1. Instale o Allegro 5
+No Ubuntu/Debian:
+
+sudo apt-get install liballegro5-dev
+
+2. Compile o projeto
+No terminal:
+cd /caminho/para/TrabalhoFinalPDS2
+make all
+
+3. Execute o jogo
+
+./bin/flappy_bird
+
+6. Funcionalidades Extras
+ Sistema de Ranking Persistente
+ Armazena apelidos e pontuações dos jogadores entre sessões.
+
+
+ Entrada de Apelido
+ Tela interativa permite que o jogador insira seu nome antes da partida.
+
+
+ Controle de Estados
+ Sistema simples de estados de tela que alterna entre entrada, jogo, game over e ranking.
+
+7. Dificuldades Encontradas
+ Gerenciamento de Recursos Allegro
+ A correta liberação de elementos como fontes, eventos e janelas exigiu atenção para evitar vazamentos de memória.
+
+
+ Persistência de Dados
+ A manipulação de arquivos exigiu cuidados com leitura e escrita de dados estruturados.
+
+Configuração do Ambiente de Desenvolvimento
+A instalação da Allegro 5 e a configuração de um ambiente de desenvolvimento funcional em diferentes sistemas operacionais foram tarefas trabalhosas. 
