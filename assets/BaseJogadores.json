@@ -10,17 +10,5 @@
         "nome": "Ana Souza",
         "numero_de_jogos": 10,
         "pontuacao_maxima": 18
-    },
-    {
-        "apelido": "Maria",
-        "nome": "Joseph Patrick",
-        "numero_de_jogos": 0,
-        "pontuacao_maxima": 0
-    },
-    {
-        "apelido": "Quadros",
-        "nome": "Janio",
-        "numero_de_jogos": 0,
-        "pontuacao_maxima": 0
     }
 ]
